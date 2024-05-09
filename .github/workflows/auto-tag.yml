@@ -26,9 +26,9 @@ jobs:
         run: |
           # Assuming version information is in setup.py
           VERSION=$(python setup.py --version)
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git tag -a "v$VERSION" -m "Release version $VERSION"
-          git push origin --tags
+#          git config --global user.email "action@github.com"
+#          git config --global user.name "GitHub Action"
+#          git tag -a "v$VERSION" -m "Release version $VERSION"
+#          git push origin --tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

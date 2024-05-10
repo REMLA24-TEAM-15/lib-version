@@ -2,7 +2,7 @@ name: Create TAG
 on:
   push:
     branches:
-      - main
+      - automated_workflow
 jobs:
   check-tag:
     runs-on: ubuntu-latest

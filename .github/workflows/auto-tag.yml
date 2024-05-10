@@ -22,7 +22,7 @@ jobs:
 
       - name: Retrieve tag from setup.py
         run: |
-          TAG=$(python setup.py --version)
+          TAG=$(python src/setup.py --version)
           echo "TAG=$TAG" >> $GITHUB_ENV
 
       - name: Check for Tag

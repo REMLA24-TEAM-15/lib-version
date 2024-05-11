@@ -1,14 +1,17 @@
 name: Create TAG
+
 on:
   push:
     branches:
       - automated_workflow
+
 jobs:
   check-tag:
     runs-on: ubuntu-latest
     env:
       TAG: ''
       IS_NEW: 'false'
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -36,8 +39,8 @@ jobs:
           fi
 
       - name: Create Tag
-        uses: actions/github-script@v5
         if: env.IS_NEW == 'true'
+        uses: actions/github-script@v5
         with:
           github-token: ${{ secrets.GH_TOKEN }}
           script: |

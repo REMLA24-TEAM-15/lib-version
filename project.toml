@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "lib-version_URLPhishing"
+authors = [
+  { name="Marianna Louizidou", email="louizidoumarianna@gmail.com" },
+]
+description = "A version-aware library that can can be asked for the version of the library."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/REMLA24-TEAM-15/lib-version"
+Issues = "https://github.com/REMLA24-TEAM-15/lib-version/issues"

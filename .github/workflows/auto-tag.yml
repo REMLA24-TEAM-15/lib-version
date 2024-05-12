@@ -3,7 +3,7 @@ name: Create TAG
 on:
   push:
     branches:
-      - automated_workflow
+      - main
 
 jobs:
   check-tag:

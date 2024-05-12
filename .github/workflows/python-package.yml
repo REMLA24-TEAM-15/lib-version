@@ -3,7 +3,7 @@ name: Python Package
 on:
   push:
     branches:
-      - automated_workflow
+      - main
     tags:
       - 'v*'
 
@@ -30,7 +30,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Auto bump version
-        if: github.ref == 'refs/heads/automated_workflow'  # Run only on automated_workflow branch
+        if: github.ref == 'refs/heads/main'  # Run only on main branch
         run: |
           bump2version patch --config-file .bumpversion.cfg
 

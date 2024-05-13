@@ -2,7 +2,7 @@
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 [project]
-name = "lib-version_URLPhishing"
+name = "lib_version_URLPhishing"
 authors = [
   { name="Marianna Louizidou", email="louizidoumarianna@gmail.com" },
 ]

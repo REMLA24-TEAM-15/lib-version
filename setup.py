@@ -5,7 +5,7 @@ import os
 here = os.path.abspath(os.path.dirname(__file__))
 
 # Use it to build the path to version.py
-version_file = os.path.join(here, 'lib-version', 'version.py')
+version_file = os.path.join(here, 'lib_version_URLPhishing', 'version.py')
 
 # Safely read the version from version.py
 version = {}

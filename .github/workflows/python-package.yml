@@ -38,7 +38,7 @@ jobs:
 
       - name: Update version.py
         run: |
-          echo "__version__ = '\"${{ env.VERSION }}\"'" > lib_version_URLPhishing/version.py
+          echo "__version__ = '\"${{ steps.get_version.outputs.VERSION }}\"'" > lib_version_URLPhishing/version.py
 
       - name: Install dependencies
         run: |

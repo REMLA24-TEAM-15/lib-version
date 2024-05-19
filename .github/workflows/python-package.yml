@@ -28,6 +28,15 @@ jobs:
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
 
+      - name: Extract Version from Tag
+        id: get_version
+        run: echo "::set-output name=VERSION::${GITHUB_REF#refs/tags/v}"
+
+      - name: Update pyproject.toml Version
+        run: |
+          poetry version ${{ steps.get_version.outputs.VERSION }}
+
+
       - name: Install dependencies
         run: |
           poetry install

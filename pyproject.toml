@@ -15,7 +15,7 @@ classifiers = [
 ]
 
 [[tool.poetry.packages]]
-include = "lib_version_URLPhishing"
+include = "lib_version_URLPhishing/*.py"
 
 [tool.poetry.urls]
 Homepage = "https://github.com/REMLA24-TEAM-15/lib-version"

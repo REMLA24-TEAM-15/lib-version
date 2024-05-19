@@ -6,11 +6,16 @@ authors = ["Marianna Louizidou <M.Louizidou@student.tudelft.nl>"]
 readme = "README.md"
 license = "Apache-2.0"
 
+
+
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: Apache Software License",  # Corrected classifier
     "Operating System :: OS Independent",
 ]
+
+[[tool.poetry.packages]]
+include = "lib_version_URLPhishing"
 
 [tool.poetry.urls]
 Homepage = "https://github.com/REMLA24-TEAM-15/lib-version"

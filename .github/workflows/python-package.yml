@@ -28,6 +28,7 @@ jobs:
         id: get_version
         run: | 
           echo "::set-output name=VERSION::${GITHUB_REF#refs/tags/v}"
+          sleep 1
           echo "Updating version.py with version ${{ steps.get_version.outputs.VERSION }}"
           echo "__version__ = '${{ steps.get_version.outputs.VERSION }}'" > lib_version_URLPhishing/version.py
           cat lib_version_URLPhishing/version.py  # This line will print the content of version.py to the log

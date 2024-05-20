@@ -45,8 +45,8 @@ jobs:
           curl -sSL https://install.python-poetry.org | python3 -
 
       - name: Update pyproject.toml Version
-          run: |
-            poetry version ${{ steps.get_version.outputs.VERSION }}
+        run: |
+          poetry version ${{ steps.get_version.outputs.VERSION }}
 
       - name: Install dependencies
         run: |

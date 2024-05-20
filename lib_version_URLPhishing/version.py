@@ -1,4 +1,3 @@
-
 """
 Module to define the version of the library.
 """

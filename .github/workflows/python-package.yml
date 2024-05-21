@@ -52,10 +52,9 @@ jobs:
         run: |
           poetry install
 
-      - name: Lint with pylint
+      - name: Lint with Flake8
         run: |
-          pip install pylint
-          poetry run pylint ./lib_version_URLPhishing
+          poetry run flake8 ./lib_version_URLPhishing
 
       - name: Bump version and tag if on main
         if: github.ref == 'refs/heads/main'

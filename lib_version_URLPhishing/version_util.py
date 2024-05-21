@@ -15,4 +15,3 @@ class VersionUtil:
             str: The current version of the library.
         """
         return __version__
-

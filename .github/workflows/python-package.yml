@@ -24,29 +24,67 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
+
+      - name: Extract Version from Tag
+        id: get_version
+        run: echo "::set-output name=VERSION::${GITHUB_REF#refs/tags/v}"
+
+      - name: Update version.py
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          echo "Updating version.py with version ${{ steps.get_version.outputs.VERSION }}"
+          echo "__version__ = '${{ steps.get_version.outputs.VERSION }}'" > lib_version_URLPhishing/version.py
+          cat lib_version_URLPhishing/version.py  # This line will print the content of version.py to the log
+          git checkout -B poetry
+          git add lib_version_URLPhishing/version.py
+          git commit -m "Update version.py to ${{ steps.get_version.outputs.VERSION }}"
+          git push origin poetry
+
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+
+      - name: Update pyproject.toml Version
+        run: |
+          poetry version ${{ steps.get_version.outputs.VERSION }}
+
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Auto bump version
-        if: github.ref == 'refs/heads/main'  # Run only on main branch
-        run: |
-          bump2version patch --config-file .bumpversion.cfg
+          poetry install
 
       - name: Lint with Flake8
         run: |
-          pip install flake8
-          flake8 ./lib_version_URLPhishing
+          poetry run flake8 ./lib_version_URLPhishing
+
+      - name: Bump version and tag if on main
+        if: github.ref == 'refs/heads/main'
+        run: |
+          poetry version patch
+          git commit -am "Bump version"
+          new_tag=$(poetry version --short)
+          git tag $new_tag
+          git push origin --tags
+
+      - name: Install pdoc
+        run: |
+          pip install pdoc3
+
+      - name: Generate documentation
+        run: |
+          pdoc --html lib_version_URLPhishing --output-dir docs
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/lib_version_URLPhishing
 
       - name: Build and publish to PyPI
-        if: startsWith(github.ref, 'refs/tags/v')  # Only runs if the push is a tag starting with 'v'
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          pip install build twine
-          python -m build
-          python -m twine upload dist/* --skip-existing
+          python -c "from lib_version_URLPhishing.version import __version__; print(f'Version in version.py: {__version__}')"
+          sleep 3
+          poetry build
+          poetry publish -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}
         env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        continue-on-error: false  # Ensure that errors in this step fail the workflow
-
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}

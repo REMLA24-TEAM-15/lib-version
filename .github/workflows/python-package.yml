@@ -65,9 +65,9 @@ jobs:
           git tag $new_tag
           git push origin --tags
 
-       - name: Install pdoc
-       - run: |
-           pip install pdoc
+      - name: Install pdoc
+        run: |
+          pip install pdoc
 
       - name: Generate documentation
         run: |

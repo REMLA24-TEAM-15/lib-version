@@ -27,6 +27,8 @@ python = "^3.10"
 requests = "^2.31.0"
 flake8 = "^3.9"
 pdoc3 = "0.10.0"
+setuptools = "69.5.1"
+bump2version = "1.0.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

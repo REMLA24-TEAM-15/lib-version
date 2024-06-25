@@ -33,7 +33,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           echo "Updating version.py with version ${{ steps.get_version.outputs.VERSION }}"
-          run: sed -i "s/{{VERSION}}/${{ steps.tag.outputs.TAG_NAME }}/g" lib_version_URLPhishing/version.py
+          sed -i "s/{{VERSION}}/${{ steps.tag.outputs.TAG_NAME }}/g" lib_version_URLPhishing/version.py
 
       - name: Install Poetry
         run: |

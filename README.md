@@ -1,4 +1,5 @@
 lib_version_URLPhishing is a version-aware library that can can be asked for the version of the library.
+[PyPI](https://pypi.org/project/lib-version-urlphishing/)
 
 1. **Installation**
    ```bash

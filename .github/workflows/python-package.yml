@@ -33,11 +33,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           echo "Updating version.py with version ${{ steps.get_version.outputs.VERSION }}"
-          echo "__version__ = '${{ steps.get_version.outputs.VERSION }}'" > lib_version_URLPhishing/version.py
-          cat lib_version_URLPhishing/version.py  # This line will print the content of version.py to the log
-          git add lib_version_URLPhishing/version.py
-          git commit -m "Update version.py to ${{ steps.get_version.outputs.VERSION }}"
-          git push origin
+          run: sed -i "s/{{VERSION}}/${{ steps.tag.outputs.TAG_NAME }}/g" lib_version_URLPhishing/version.py
 
       - name: Install Poetry
         run: |

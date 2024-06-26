@@ -51,12 +51,11 @@ jobs:
         run: |
           poetry run flake8 ./lib_version_URLPhishing
 
-      - name: Bump version and tag if on main
-        if: github.ref == 'refs/heads/main'
+      - name: Commit version changes
         run: |
           git add lib_version_URLPhishing/version.py pyproject.toml
           git commit -m "Update version to ${{ steps.get_version.outputs.VERSION }}"
-          git push
+          git push origin HEAD:main
 
       - name: Install pdoc
         run: |

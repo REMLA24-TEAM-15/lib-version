@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch all history for all branches and tags
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -27,6 +29,11 @@ jobs:
       - name: Extract Version from Tag
         id: get_version
         run: echo "::set-output name=VERSION::${GITHUB_REF#refs/tags/v}"
+
+      - name: Check out main branch
+        run: |
+          git checkout main
+          git pull origin main
 
       - name: Update version.py
         if: startsWith(github.ref, 'refs/tags/')
@@ -51,28 +58,21 @@ jobs:
         run: |
           poetry run flake8 ./lib_version_URLPhishing
 
-      # Commit version changes
       - name: Commit version changes
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           git add lib_version_URLPhishing/version.py pyproject.toml
           git commit -m "Update version to ${{ steps.get_version.outputs.VERSION }}"
-          git push origin HEAD:main
+          git push origin main
 
-      # Pull latest changes to ensure the build uses the updated version
       - name: Pull latest changes
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          git fetch --all
-          git checkout main
           git pull origin main
 
-      # Build and publish to PyPI
       - name: Build and publish to PyPI
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          # Wait a bit to ensure all changes are pulled and the repo is in the correct state
-          sleep 5
           python -c "from lib_version_URLPhishing.version import __version__; print(f'Version in version.py: {__version__}')"
           poetry build
           poetry publish -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lib-version-urlphishing"
-version = "2.9.5"
+version = "2.9.6"
 description = "A library to manage and track versions of software components"
 authors = ["Marianna Louizidou <M.Louizidou@student.tudelft.nl>"]
 readme = "README.md"

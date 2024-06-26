@@ -59,6 +59,7 @@ jobs:
           git commit -m "Update version to ${{ steps.get_version.outputs.VERSION }}"
           git push origin HEAD:main
 
+      # Pull latest changes to ensure the build uses the updated version
       - name: Pull latest changes
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
@@ -66,9 +67,12 @@ jobs:
           git checkout main
           git pull origin main
 
+      # Build and publish to PyPI
       - name: Build and publish to PyPI
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
+          # Wait a bit to ensure all changes are pulled and the repo is in the correct state
+          sleep 5
           python -c "from lib_version_URLPhishing.version import __version__; print(f'Version in version.py: {__version__}')"
           poetry build
           poetry publish -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}

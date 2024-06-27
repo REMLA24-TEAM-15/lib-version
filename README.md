@@ -17,3 +17,5 @@ lib_version_URLPhishing is a version-aware library that can can be asked for the
    version = VersionUtil.get_version()
    print(version)
 
+## Token Required
+For this repository you require Github Token , PYPI_PASSWORD, PYPI_TOKEN , PYPI_USERNAME secrets with pacakage and repo read/write permissions.
